@@ -7,7 +7,7 @@ import * as QRCode from "qrcode"
 import   { AnimalService } from "../../shared/services/animal.service"
 import   { AnimalType, CreatePetDto } from "../../shared/models/pet.model"
 import { firstValueFrom } from "rxjs"
-import { environment } from "src/environments/environment"
+import { environment } from "src/environments/environment.prod"
 
 @Component({
   selector: "app-add-animal",
