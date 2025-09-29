@@ -1,0 +1,69 @@
+
+
+<div style="overflow: auto;">
+<header class="page-header">
+  <h1>Liste des Animaux</h1>
+</header>
+
+<main class="main-content">
+  <div class="container">
+    <!-- Bouton d'ajout -->
+    <div class="add-section">
+      <a routerLink="/animal/ajouter-animal" class="btn btn-primary btn-block">
+        Ajouter un Nouvel Animal
+      </a>
+    </div>
+    
+    <!-- Carte de liste -->
+    <div class="card">
+      <div class="card-header">
+        <h2>Liste des Animaux Enregistrés</h2>
+      </div>
+      <div class="card-content">
+        <!-- États de chargement/erreur -->
+        <div *ngIf="loading" class="loading-state">
+          <div class="spinner"></div>
+          <p>Chargement des animaux...</p>
+        </div>
+        
+        <div *ngIf="error && !loading" class="error-state">
+          <div class="error-icon">⚠️</div>
+          <p>{{ error }}</p>
+          <button class="btn btn-outline" (click)="loadAnimals()">Réessayer</button>
+        </div>
+        
+        <!-- Tableau des animaux -->
+        <div *ngIf="!loading && !error" class="table-container">
+          <div class="table-header">
+            <div class="table-cell">Nom</div>
+            <div class="table-cell">Type</div>
+            <div class="table-cell">Propriétaire</div>
+            <div class="table-cell">Actions</div>
+          </div>
+          
+          <!-- Lignes dynamiques -->
+          <div class="table-row" *ngFor="let animal of animals; trackBy: trackByAnimalId">
+            <div class="table-cell" [attr.data-label]="'Nom'">{{ animal.animalName }}</div>
+            <div class="table-cell" [attr.data-label]="'Type'">{{ getTranslatedAnimalType(animal.animalType) }}</div>
+            <div class="table-cell" [attr.data-label]="'Propriétaire'">{{ animal.ownerName }}</div>
+            <div class="table-cell" [attr.data-label]="'Actions'">
+              <div class="action-buttons">
+                <a [routerLink]="'/animal/detail-animal/' + animal.id" class="btn-icon" title="Voir détails">👁️</a>
+                <button class="btn-icon" (click)="downloadQRCode(animal)" title="QR Code">📱</button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- État vide -->
+          <div *ngIf="animals.length === 0" class="empty-state">
+            <div class="empty-icon">🐾</div>
+            <p>Aucun animal enregistré</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+
+</div>

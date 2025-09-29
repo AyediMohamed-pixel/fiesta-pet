@@ -1,0 +1,70 @@
+
+
+<div style="overflow: auto;">
+<header class="page-header">
+  <h1>Profil de l'Animal</h1>
+</header>
+
+<main class="main-content">
+  <div class="container">
+    <div class="animal-profile">
+      <!-- En-tête du profil -->
+      <div class="profile-header">
+        <div class="pet-avatar">🐾</div>
+        <h2 id="petName">{{ petInfo?.animalName || 'Profil Animal' }}</h2>
+      </div>
+      
+      <!-- États de chargement/erreur -->
+      <div *ngIf="loading" class="loading-state">
+        <h3>Chargement en cours</h3>
+        <p>Récupération des informations de l'animal...</p>
+      </div>
+      
+      <div *ngIf="error && !loading" class="error-state">
+        <h3>Erreur de chargement</h3>
+        <p>{{ error }}</p>
+      </div>
+      
+      <!-- Informations de l'animal -->
+      <div *ngIf="petInfo && !loading && !error" class="profile-content">
+        <div class="info-card">
+          <div class="info-row">
+            <span class="info-label">Type d'Animal</span>
+            <span class="info-value">{{ getTranslatedAnimalType(petInfo.animalType?.label || '') }}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Nom</span>
+            <span class="info-value">{{ petInfo.animalName || '-' }}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Propriétaire</span>
+            <span class="info-value">{{ petInfo.ownerName || '-' }}</span>
+          </div>
+          <div *ngIf="petInfo.phoneNumbers && petInfo.phoneNumbers.length > 0">
+            <div class="info-row" *ngFor="let phone of petInfo.phoneNumbers; let i = index">
+              <span class="info-label">Téléphone {{ i + 1 }}</span>
+              <span class="info-value">{{ phone }}</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Section notes -->
+        <div *ngIf="petInfo?.additionalNote" class="notes-section">
+          <h3>Notes Supplémentaires</h3>
+          <div class="notes-content">
+            <p>{{ petInfo?.additionalNote }}</p>
+          </div>
+        </div>
+        
+        <!-- Bouton retour -->
+        <div class="profile-actions">
+          <a routerLink="/animal" class="btn btn-primary btn-block">
+            ← Retour à la Liste
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+</div>

@@ -1,0 +1,128 @@
+<div style="overflow: auto;">
+  <!-- Page Header -->
+  <header class="page-header">
+    <h1>Ajouter un Animal</h1>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="container">
+
+      <form class="pet-form">
+        <!-- Animal Type Selection -->
+        <div class="form-section">
+          <h3>Sélectionnez le type d'animal</h3>
+          <div class="animal-type-grid" *ngIf="!loadingAnimalTypes; else loadingTemplate">
+            <button type="button" class="animal-btn" *ngFor="let animalType of animalTypes; trackBy: trackByIndex"
+              [class.selected]="selectedAnimalTypeId === animalType.id" (click)="selectAnimal(animalType)"
+              [attr.data-type]="animalType.label.toLowerCase()">
+              <div class="animal-icon">
+                <img [src]="'assets/img/' + animalType.label.toLowerCase() + '.svg'" [alt]="animalType.label">
+              </div>
+              <span>{{ animalType.label }}</span>
+            </button>
+          </div>
+          <ng-template #loadingTemplate>
+            <div class="loading-state">
+              <div class="loading-spinner"></div>
+              <p>Chargement des types d'animaux...</p>
+            </div>
+          </ng-template>
+        </div>
+
+        <!-- Form Fields -->
+        <div class="form-group">
+          <label for="petName">Nom de l'Animal</label>
+          <input type="text" id="petName" name="petName" placeholder="Ex: Bella, Max, Luna..." [(ngModel)]="petName"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label for="ownerName">Nom du Propriétaire</label>
+          <input type="text" id="ownerName" name="ownerName" placeholder="Votre nom complet" [(ngModel)]="ownerName"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label>Numéro(s) de Téléphone</label>
+          <div class="phone-container">
+            <div class="phone-input-group" *ngFor="let phone of phoneNumbers; let i = index; trackBy: trackByIndex">
+              <input type="tel" placeholder="Numéro de téléphone" [(ngModel)]="phoneNumbers[i]" [name]="'phone' + i"
+                required>
+              <button type="button" class="btn-add-phone" (click)="addPhoneField()"
+                *ngIf="i === phoneNumbers.length - 1">
+                +
+              </button>
+              <button type="button" class="btn-remove-phone" (click)="removePhoneField(i)"
+                *ngIf="phoneNumbers.length > 1">
+                ×
+              </button>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="form-group">
+          <label for="notes">Notes Supplémentaires (optionnel)</label>
+          <textarea id="notes" name="notes" rows="3" placeholder="Informations spéciales, allergies, comportement..."
+            [(ngModel)]="notes">
+        </textarea>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="form-actions">
+          <button type="button" class="btn btn-primary btn-block" (click)="generateQR()"
+            [disabled]="!isFormValid() || isSaving || loadingAnimalTypes">
+            <span *ngIf="!isSaving">Créer le Profil & Générer QR</span>
+            <span *ngIf="isSaving">Création en cours...</span>
+          </button>
+          <a routerLink="/animal" class="btn btn-outline btn-block">
+            Retour à la liste
+          </a>
+        </div>
+      </form>
+
+      <!-- QR Result Section -->
+      <div class="qr-result" *ngIf="showQRResult">
+        <div class="card">
+          <div class="card-header">
+            <h3>Profil Créé avec Succès!</h3>
+          </div>
+          <div class="card-content">
+            <div class="qr-container">
+              <div class="qr-code">
+                <img [src]="qrCodeDataURL" alt="QR Code" class="qr-image" *ngIf="qrCodeDataURL">
+                <div class="qr-placeholder" *ngIf="!qrCodeDataURL">📱 QR Code</div>
+              </div>
+            </div>
+            <p>Votre code QR est prêt! Scannez-le pour accéder instantanément aux informations de {{ petName }}.</p>
+
+            <div class="qr-info" *ngIf="animalId">
+              <p>Lien généré:</p>
+              <div class="qr-link">{{ pathUrl }}animal/detail-animal/{{ animalId }}</div>
+              <p class="qr-note">Ce lien mène directement à la page de détail de {{ petName }}.</p>
+            </div>
+
+            <div class="qr-actions">
+              <button class="btn btn-success btn-block" (click)="downloadQRCode()">
+                Télécharger QR Code
+              </button>
+              <button class="btn btn-outline btn-block" (click)="resetForm()">
+                Créer un Autre Profil
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Toast Notifications -->
+  <div class="toast-container" *ngIf="showToast">
+    <div class="toast" [class]="'toast-' + toastColor">
+      {{ toastMessage }}
+    </div>
+  </div>
+
+</div>
