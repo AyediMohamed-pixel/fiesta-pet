@@ -154,7 +154,7 @@ export class AddAnimalPage implements OnInit {
         const logoImage = new Image()
         logoImage.onload = () => {
           // Calculate logo size (about 20% of QR code size)
-          const logoSize = 90
+          const logoSize = 100
           const logoX = (256 - logoSize) / 2
           const logoY = (256 - logoSize) / 2
 
