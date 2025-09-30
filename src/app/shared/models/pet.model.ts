@@ -16,6 +16,7 @@ export interface Pet {
   id: string;
   animalName: string;
   ownerName: string;
+  adress: string;
   phoneNumbers: string[];
   additionalNote?: string;
   animalTypeId: string;
