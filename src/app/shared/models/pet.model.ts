@@ -34,6 +34,7 @@ export interface Pet {
 export interface CreatePetDto {
   animalName: string;
   ownerName: string;
+  adress: string;
   phoneNumbers: string[];
   additionalNote?: string;
   animalTypeId: string;

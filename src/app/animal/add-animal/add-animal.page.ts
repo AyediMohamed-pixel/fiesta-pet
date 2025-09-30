@@ -26,6 +26,7 @@ export class AddAnimalPage implements OnInit {
   selectedAnimalTypeId = ""
   petName = ""
   ownerName = ""
+  adress = ""
   phoneNumbers: string[] = [""] 
   notes = ""
   showQRResult = false
@@ -94,12 +95,13 @@ export class AddAnimalPage implements OnInit {
       this.selectedAnimalTypeId !== "" &&
       this.petName.trim() !== "" &&
       this.ownerName.trim() !== "" &&
+      this.adress.trim() !== "" &&
       this.phoneNumbers.some((phone) => phone.trim() !== "")
     )
   }
 
   async generateQR() {
-    if (!this.selectedAnimal || !this.petName || !this.ownerName || !this.selectedAnimalTypeId) {
+    if (!this.selectedAnimal || !this.petName || !this.ownerName || !this.adress || !this.selectedAnimalTypeId) {
       this.showToastMessage("Veuillez remplir tous les champs obligatoires", "danger")
       return
     }
@@ -111,6 +113,7 @@ export class AddAnimalPage implements OnInit {
       const createPetDto: CreatePetDto = {
         animalName: this.petName,
         ownerName: this.ownerName,
+        adress: this.adress,
         phoneNumbers: this.phoneNumbers.filter((phone) => phone.trim() !== ""),
         additionalNote: this.notes || "",
         animalTypeId: this.selectedAnimalTypeId,
@@ -281,6 +284,7 @@ export class AddAnimalPage implements OnInit {
     this.selectedAnimalTypeId = ""
     this.petName = ""
     this.ownerName = ""
+    this.adress = ""
     this.phoneNumbers = [""] 
     this.notes = ""
     this.showQRResult = false
