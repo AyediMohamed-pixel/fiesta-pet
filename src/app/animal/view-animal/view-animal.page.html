@@ -58,8 +58,8 @@
         
         <!-- Bouton retour -->
         <div class="profile-actions" *ngIf="petInfo && !loading && !error">
-          <a href="tel:{{phone}}" class="btn btn-success btn-block">
-            Appeler (+216) {{phone}}
+          <a href="tel:{{petInfo.phoneNumbers[0]}}" class="btn btn-success btn-block">
+            Appeler (+216) {{petInfo.phoneNumbers[0]}}
           </a>
         </div>
       </div>
