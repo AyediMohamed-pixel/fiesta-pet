@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://votre-api.domain.com',
-  CLIENT_SERVER_URI: 'http://localhost:3001/',
+  apiUrl: 'https://fiesta-pet-api.onrender.com/',
+  CLIENT_SERVER_URI: 'https://fiesta-pet-api.onrender.com/',
   // CLIENT_SERVER_URI : 'https://api.pawty.tn/',
   SOCKETS_SERVER_URI: 'https://socket.pawty.tn/',
   CRYPT_SECRET: 'qskO2CFWHNJd1KN1eWP-9QWl6wPqPjvu:)SN._I@n+)5PSMViaE!pP)teWKO)-DQPHl_-YZz)?iJEg2XIOaM_nG!lpg)jB7-MHv=*2Tr)zqG1y.b3#rDoM+vzYdQK3k6',
